@@ -7,7 +7,7 @@ export default function HomePage() {
       <main>
         <Outlet />
 
-        <H1>Welcome to the HomePage</H1>
+        
       </main>
     </>
   );
