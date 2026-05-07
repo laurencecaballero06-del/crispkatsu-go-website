@@ -7,12 +7,16 @@ import {
   MessageCircle,
   Plus,
   Minus,
+  Utensils,
+  ShoppingBasket,
 } from "lucide-react";
 
 export default function CartPage() {
   const navigate = useNavigate();
   const [cartItems, setCartItems] = useState([]);
+  const [serviceType, setServiceType] = useState("Dining In");
 
+  // Load cart from localStorage
   useEffect(() => {
     const savedCart = localStorage.getItem("cartItems");
     if (savedCart) {
@@ -30,17 +34,14 @@ export default function CartPage() {
     0,
   );
 
-  // --- NEW: Quantity Update Logic ---
   const updateQuantity = (itemName, delta) => {
     const updatedCart = cartItems.map((item) => {
       if (item.name === itemName) {
-        // Prevent quantity from going below 1
         const newQuantity = Math.max(1, item.quantity + delta);
         return { ...item, quantity: newQuantity };
       }
       return item;
     });
-
     setCartItems(updatedCart);
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
   };
@@ -54,7 +55,6 @@ export default function CartPage() {
   const handleCheckout = () => {
     if (cartItems.length === 0) return;
 
-    // 1. Generate the current date and time
     const orderDate = new Intl.DateTimeFormat("en-US", {
       dateStyle: "medium",
       timeStyle: "short",
@@ -63,21 +63,21 @@ export default function CartPage() {
     const itemsList = cartItems
       .map(
         (item) =>
-          `- ${item.name} (x${item.quantity}): $${(
+          `- ${item.name} (x${item.quantity}): ₱${(
             item.price * item.quantity
           ).toFixed(2)}`,
       )
       .join("\n");
 
-    // 2. Add the Order Date to the template
     const message = `Hello! I'd like to place an order:
 
+Order Type: ${serviceType}
 Order Date: ${orderDate}
     
 Order Details:
 ${itemsList}
 
-Total: $${subtotal.toFixed(2)}
+Total: ₱${subtotal.toFixed(2)}
 
 Please let me know how to proceed with the payment.`;
 
@@ -86,32 +86,37 @@ Please let me know how to proceed with the payment.`;
 
     window.open(messengerUrl, "_blank");
   };
+
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#FAFAFA] py-12 px-4 sm:px-6 lg:px-8 font-body">
       <div className="max-w-5xl mx-auto">
+        {/* Navigation */}
         <button
           onClick={() => navigate(-1)}
-          className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors mb-6 group"
+          className="flex items-center gap-2 text-gray-400 hover:text-brand-red transition-colors mb-8 group"
         >
-          <ArrowLeft className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
-          <span className="font-medium">Back to Shop</span>
+          <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-1" />
+          <span className="font-bold uppercase text-[10px] tracking-[0.2em]">
+            Back to Menu
+          </span>
         </button>
 
-        <h1 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-          <ShoppingBag className="text-brand-red" />
-          Shopping Cart
+        <h1 className="text-3xl font-black text-brand-dark mb-10 flex items-center gap-3 font-display tracking-tight uppercase">
+          <ShoppingBag className="text-brand-red" size={28} />
+          Your Cart
         </h1>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          {/* Cart Items List */}
+          <div className="lg:col-span-7">
             {cartItems.length > 0 ? (
               <div className="space-y-4">
                 {cartItems.map((item, index) => (
                   <div
                     key={index}
-                    className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4"
+                    className="bg-white p-4 rounded-3xl border border-gray-100 shadow-sm flex items-center gap-5"
                   >
-                    <div className="w-20 h-20 bg-gray-100 rounded-lg overflow-hidden shrink-0">
+                    <div className="w-20 h-20 bg-gray-50 rounded-2xl overflow-hidden shrink-0">
                       <img
                         src={item.image || "https://via.placeholder.com/150"}
                         alt={item.name}
@@ -120,39 +125,40 @@ Please let me know how to proceed with the payment.`;
                     </div>
 
                     <div className="flex-1">
-                      <h3 className="font-semibold text-gray-800 text-lg">
+                      <h3 className="font-black text-brand-dark text-base font-display uppercase tracking-tight leading-tight">
                         {item.name}
                       </h3>
 
-                      {/* --- UPDATED: Quantity Controls --- */}
-                      <div className="flex items-center gap-3 mt-2">
-                        <button
-                          onClick={() => updateQuantity(item.name, -1)}
-                          className="p-1 rounded-md border border-gray-200 hover:bg-gray-100 transition-colors"
-                        >
-                          <Minus size={14} />
-                        </button>
-                        <span className="font-bold text-gray-700 w-4 text-center">
-                          {item.quantity}
-                        </span>
-                        <button
-                          onClick={() => updateQuantity(item.name, 1)}
-                          className="p-1 rounded-md border border-gray-200 hover:bg-gray-100 transition-colors"
-                        >
-                          <Plus size={14} />
-                        </button>
+                      <div className="flex items-center gap-4 mt-3">
+                        <div className="flex items-center border border-gray-100 rounded-xl p-1 bg-gray-50">
+                          <button
+                            onClick={() => updateQuantity(item.name, -1)}
+                            className="p-1 rounded-lg hover:bg-white hover:shadow-sm transition-all"
+                          >
+                            <Minus size={12} />
+                          </button>
+                          <span className="font-black text-brand-dark w-8 text-center text-xs">
+                            {item.quantity}
+                          </span>
+                          <button
+                            onClick={() => updateQuantity(item.name, 1)}
+                            className="p-1 rounded-lg hover:bg-white hover:shadow-sm transition-all"
+                          >
+                            <Plus size={12} />
+                          </button>
+                        </div>
                       </div>
                     </div>
 
                     <div className="text-right">
-                      <p className="font-bold text-gray-900 text-lg">
-                        ${(item.price * item.quantity).toFixed(2)}
+                      <p className="font-black text-brand-dark text-lg">
+                        ₱{(item.price * item.quantity).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                       </p>
                       <button
                         onClick={() => handleRemove(item.name)}
-                        className="text-red-500 text-xs hover:text-red-700 mt-2 flex items-center gap-1 ml-auto transition-colors"
+                        className="text-gray-300 text-[10px] hover:text-brand-red mt-2 flex items-center gap-1 ml-auto transition-colors font-bold uppercase tracking-widest"
                       >
-                        <Trash2 size={14} />
+                        <Trash2 size={12} />
                         Remove
                       </button>
                     </div>
@@ -160,49 +166,90 @@ Please let me know how to proceed with the payment.`;
                 ))}
               </div>
             ) : (
-              <div className="text-center py-20 bg-white rounded-2xl border border-dashed border-gray-300">
-                <p className="text-gray-500 font-medium">Your cart is empty.</p>
-                <Link
-                  to="/"
-                  className="text-blue-600 font-bold hover:underline mt-2 inline-block"
-                >
-                  Explore Products
+              <div className="text-center py-20 bg-white rounded-[2.5rem] border border-gray-100 shadow-sm">
+                <ShoppingBag className="mx-auto text-gray-100 mb-4" size={48} />
+                <p className="text-gray-400 font-bold font-display">Your bag is empty</p>
+                <Link to="/products" className="text-brand-red font-black uppercase text-xs tracking-widest mt-2 inline-block hover:underline">
+                  Browse Menu
                 </Link>
               </div>
             )}
           </div>
 
-          {/* Order Summary Section remains the same */}
-          <div className="lg:col-span-4">
-            {/* ... (Your existing Summary UI) ... */}
-            <div className="bg-white sticky top-8 p-6 rounded-2xl border border-gray-100 shadow-xl shadow-gray-200/50">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">
-                Order Summary
+          {/* Sidebar Summary */}
+          <div className="lg:col-span-5">
+            <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-xl shadow-gray-200/20 sticky top-10">
+              <h2 className="text-xl font-black text-brand-dark mb-8 font-display tracking-tight border-b border-gray-50 pb-5">
+                SUMMARY
               </h2>
-              <div className="space-y-3 pb-4 border-b border-gray-100">
-                <div className="flex justify-between text-gray-600">
-                  <span>Subtotal</span>
-                  <span className="font-medium text-gray-900">
-                    ${subtotal.toFixed(2)}
+
+              {/* SERVICE TYPE TOGGLE */}
+              <div className="mb-8">
+                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">How do you want your katsu?</p>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setServiceType("Dining In")}
+                    className={`flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all duration-200 ${
+                      serviceType === "Dining In" 
+                        ? "border-brand-red bg-red-50 text-brand-red shadow-sm" 
+                        : "border-gray-100 text-gray-400 hover:border-gray-200"
+                    }`}
+                  >
+                    <Utensils size={20} className="mb-2" />
+                    <span className="text-[10px] font-black uppercase tracking-wider text-center">Dining In</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setServiceType("Take Out")}
+                    className={`flex flex-col items-center justify-center p-4 rounded-2xl border-2 transition-all duration-200 ${
+                      serviceType === "Take Out" 
+                        ? "border-brand-red bg-red-50 text-brand-red shadow-sm" 
+                        : "border-gray-100 text-gray-400 hover:border-gray-200"
+                    }`}
+                  >
+                    <ShoppingBasket size={20} className="mb-2" />
+                    <span className="text-[10px] font-black uppercase tracking-wider text-center">Take Out</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Price Breakdown */}
+              <div className="space-y-4 mb-8">
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-gray-400 font-bold uppercase tracking-widest">Subtotal</span>
+                  <span className="text-brand-dark font-black font-display text-lg">
+                    ₱{subtotal.toLocaleString(undefined, { minimumFractionDigits: 2 })}
                   </span>
                 </div>
-                <div className="flex justify-between text-gray-600">
-                  <span>Shipping</span>
-                  <span className="text-green-600 font-bold">Free</span>
+                <div className="flex justify-between items-center text-sm">
+                  <span className="text-gray-400 font-bold uppercase tracking-widest">Delivery</span>
+                  <span className="text-brand-green bg-brand-green/5 px-2 py-1 rounded-md text-[9px] font-black">
+                    CALCULATED IN CHAT
+                  </span>
                 </div>
               </div>
-              <div className="flex justify-between py-4 text-xl font-black text-gray-900 uppercase tracking-tight">
-                <span>Total</span>
-                <span>${subtotal.toFixed(2)}</span>
+
+              <div className="flex justify-between items-end pt-6 border-t border-gray-50 mb-10">
+                <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.3em]">Total</span>
+                <span className="text-4xl font-black text-brand-gold font-display leading-none">
+                  ₱{subtotal.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+                </span>
               </div>
+
               <button
                 onClick={handleCheckout}
                 disabled={cartItems.length === 0}
-                className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-blue-700 transition-all active:scale-[0.98] shadow-lg shadow-blue-200 disabled:bg-gray-400"
+                className="w-full bg-brand-red text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-sm flex items-center justify-center gap-3 transition-all duration-300 hover:shadow-xl hover:shadow-brand-red/20 active:scale-[0.98] disabled:bg-gray-100 disabled:text-gray-300 disabled:shadow-none"
               >
-                <MessageCircle size={20} />
-                Checkout via Messenger
+                <MessageCircle size={20} fill="currentColor" />
+                Place Order
               </button>
+
+              <p className="mt-8 text-[9px] text-gray-400 text-center font-bold uppercase tracking-tight leading-relaxed">
+                Orders are finalized via <span className="text-brand-red">Messenger</span> for freshness.
+              </p>
             </div>
           </div>
         </div>
