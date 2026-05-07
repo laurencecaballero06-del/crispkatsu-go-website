@@ -22,7 +22,7 @@ export default function ProductListings() {
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
           <div>
             <h1 className="text-4xl font-black text-brand-dark tracking-tight font-display text-center md:text-left">
-              This is the change{/* Crispkatsu Menu */}
+              Crispkatsu Menu
             </h1>
             <p className="mt-2 text-lg text-gray-500 text-center md:text-left">
               Satisfying fusion of crispy katsu and fresh wraps.

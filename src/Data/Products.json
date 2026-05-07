@@ -2,7 +2,7 @@
   {
     "id": "p1",
     "ProdName": "Chicken Katsu w/ Rice",
-    "Price": 15.99,
+    "Price": 74.99,
     "Category": "Rice Meal",
     "isAvailable": true,
     "hasAllergen": true,
@@ -10,6 +10,27 @@
     "image": [
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeLIQaJxJOjtuK9MqmeyHe5YTYnMUnMOvAiQ&s",
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUWUhem9WLkR4unsUG_9wFXs33PP2lk9bX3g&s"
+    ],
+    "sauceSelection": [
+      "Teriyaki",
+      "Gravy",
+      "Sour Cream",
+      "All-Purpose",
+      "Spicy Honey"
+    ]
+  },
+  {
+    "id": "p2",
+    "ProdName": "Chicken Burger w/ Lettuce",
+    "Price": 74.99,
+    "Category": "Salad Meal",
+    "isAvailable": true,
+    "hasAllergen": true,
+    "isHalal": true,
+    "image": [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUtrrQ5mnocUTDYkV8GBt9Ty114GTeY6ep3w&s",
+      "https://www.justonecookbook.com/wp-content/uploads/2021/04/Ebi-Katsu-Burger-Shrimp-Cutlet-Burger-4507.jpg",
+      "https://www.lamanna.com.au/wp-content/uploads/2025/05/LaManna-mushroom-katsu-burger-recipe.jpg"
     ],
     "sauceSelection": [
       "Teriyaki",
