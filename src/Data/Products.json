@@ -1,0 +1,22 @@
+[
+  {
+    "id": "p1",
+    "ProdName": "Chicken Katsu w/ Rice",
+    "Price": 15.99,
+    "Category": "Rice Meal",
+    "isAvailable": true,
+    "hasAllergen": true,
+    "isHalal": true,
+    "image": [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeLIQaJxJOjtuK9MqmeyHe5YTYnMUnMOvAiQ&s",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUWUhem9WLkR4unsUG_9wFXs33PP2lk9bX3g&s"
+    ],
+    "sauceSelection": [
+      "Teriyaki",
+      "Gravy",
+      "Sour Cream",
+      "All-Purpose",
+      "Spicy Honey"
+    ]
+  }
+]

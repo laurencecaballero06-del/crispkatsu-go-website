@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors from your Visual Identity */
+  --color-brand-red: #B30000;      /* Primary */
+  --color-brand-gold: #F2A900;     /* Secondary */
+  --color-brand-green: #4BA23F;    /* Tertiary */
+  --color-brand-dark: #1A1A1A;     /* Neutral/Inverted */
+
+  /* Typography - v4 maps these to font-display and font-body */
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+}
