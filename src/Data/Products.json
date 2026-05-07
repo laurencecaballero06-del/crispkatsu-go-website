@@ -2,42 +2,79 @@
   {
     "id": "p1",
     "ProdName": "Chicken Katsu w/ Rice",
+    "ProdDesc": "Crispy breaded chicken cutlet served with steamed rice and a side of tangy katsu sauce.",
     "Price": 74.99,
     "Category": "Rice Meal",
-    "isAvailable": true,
-    "hasAllergen": true,
+    "isAvailable": false,
+    "hasAllergen": false,
     "isHalal": true,
     "image": [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeLIQaJxJOjtuK9MqmeyHe5YTYnMUnMOvAiQ&s",
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUWUhem9WLkR4unsUG_9wFXs33PP2lk9bX3g&s"
-    ],
-    "sauceSelection": [
-      "Teriyaki",
-      "Gravy",
-      "Sour Cream",
-      "All-Purpose",
-      "Spicy Honey"
+      "https://static.vecteezy.com/system/resources/thumbnails/050/278/176/small_2x/fried-chicken-katsu-bowl-with-white-rice-free-png.png"
     ]
   },
   {
     "id": "p2",
     "ProdName": "Chicken Burger w/ Lettuce",
+    "ProdDesc": "A delicious chicken burger served with fresh lettuce and a side of tangy katsu sauce.",
     "Price": 74.99,
-    "Category": "Salad Meal",
+    "Category": "Burger",
     "isAvailable": true,
     "hasAllergen": true,
     "isHalal": true,
     "image": [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUtrrQ5mnocUTDYkV8GBt9Ty114GTeY6ep3w&s",
-      "https://www.justonecookbook.com/wp-content/uploads/2021/04/Ebi-Katsu-Burger-Shrimp-Cutlet-Burger-4507.jpg",
-      "https://www.lamanna.com.au/wp-content/uploads/2025/05/LaManna-mushroom-katsu-burger-recipe.jpg"
-    ],
-    "sauceSelection": [
-      "Teriyaki",
-      "Gravy",
-      "Sour Cream",
-      "All-Purpose",
-      "Spicy Honey"
+      "https://static.vecteezy.com/system/resources/previews/054/838/729/non_2x/vegan-burger-with-lettuce-png.png"
+    ]
+  },
+  {
+    "id": "p3",
+    "ProdName": "Fresh Lumpia",
+    "ProdDesc": "Fresh vegetable spring roll wrapped in a soft crepe with a sweet savory peanut sauce.",
+    "Price": 45.00,
+    "Category": "Fresh Wraps",
+    "isAvailable": true,
+    "hasAllergen": true,
+    "isHalal": true,
+    "image": [
+      "https://www.recipesbynora.com/wp-content/uploads/2019/08/Lumpiang-Sariwa-Fresh-Lumpia-featured-image.jpg"
+    ]
+  },
+  {
+    "id": "d1",
+    "ProdName": "Coke Swakto",
+    "ProdDesc": "190ml of refreshing Coca-Cola classic.",
+    "Price": 15.00,
+    "Category": "Drinks/Beverages",
+    "isAvailable": true,
+    "hasAllergen": false,
+    "isHalal": true,
+    "image": [
+      "https://shopsuki.ph/cdn/shop/files/4801981127177_700x.jpg?v=1709173134"
+    ]
+  },
+  {
+    "id": "d2",
+    "ProdName": "Sprite Swakto",
+    "ProdDesc": "190ml of crisp, lemon-lime flavored Sprite.",
+    "Price": 15.00,
+    "Category": "Drinks/Beverages",
+    "isAvailable": true,
+    "hasAllergen": false,
+    "isHalal": true,
+    "image": [
+      "https://shopsuki.ph/cdn/shop/files/4801981127191_1024x.jpg?v=1718695696"
+    ]
+  },
+  {
+    "id": "d3",
+    "ProdName": "Royal Swakto",
+    "ProdDesc": "190ml of orange-flavored Royal Tru-Orange.",
+    "Price": 15.00,
+    "Category": "Drinks/Beverages",
+    "isAvailable": true,
+    "hasAllergen": false,
+    "isHalal": true,
+    "image": [
+      "https://shopsuki.ph/cdn/shop/files/4801981127207_700x.jpg?v=1718866992"
     ]
   }
 ]

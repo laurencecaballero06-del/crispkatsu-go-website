@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useIsMobile } from "../Utils/ScreenChecker/isMobile.js";
+import { ShieldCheck, AlertCircle } from "lucide-react";
 
 export default function ProductDetailsPage() {
   const isMobile = useIsMobile();
@@ -32,25 +33,39 @@ export default function ProductDetailsPage() {
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
 
   const handleAddToCart = () => {
-    // We extract only what we need from the product object
-    const cartItem = {
+    const newItem = {
       name: product.ProdName,
-      quantity: quantity,
-      // Tip: Usually, you'd also want the price for subtotal calculations!
       price: product.Price,
+      quantity: quantity,
+      image: product.ImageURL || product.image,
     };
 
-    console.log("Adding to bag:", cartItem);
+    // 1. Get the current cart from localStorage.
+    // If it's empty, we start with an empty array [].
+    const currentCart = JSON.parse(localStorage.getItem("cartItems")) || [];
 
-    // If using localStorage to persist the selection:
-    // localStorage.setItem("activeItem", JSON.stringify(cartItem));
+    // 2. Check if this specific product is already in the cart
+    const existingItemIndex = currentCart.findIndex(
+      (item) => item.name === newItem.name,
+    );
 
-    navigate("/cart");
+    if (existingItemIndex !== -1) {
+      // If it exists, update the quantity of that item in the array
+      currentCart[existingItemIndex].quantity += quantity;
+    } else {
+      // If it's a new product, add it to the list
+      currentCart.push(newItem);
+    }
+
+    // 3. Save the entire updated array back to localStorage
+    localStorage.setItem("cartItems", JSON.stringify(currentCart));
+
+    navigate("/products");
   };
 
-  return ( 
+  return (
     <div
-      className={`min-h-screen bg-white font-body ${isMobile ? "pb-44" : "py-20"}`}
+      className={`min-h-screen bg-white font-body ${isMobile ? "pb-44" : "py-2"}`}
     >
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         {/* --- DESKTOP BACK BUTTON --- */}
@@ -195,14 +210,42 @@ export default function ProductDetailsPage() {
               {product.ProdName}
             </h1>
 
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              {/* Halal Badge */}
+              {product.isHalal && (
+                <div className="flex items-center gap-1.5 rounded-full bg-brand-green/10 px-2 py-1 border border-brand-green/20">
+                  <ShieldCheck
+                    size={14}
+                    className="text-brand-green"
+                    strokeWidth={2.5}
+                  />
+                  <span className="text-[10px] font-bold text-brand-green uppercase tracking-wider">
+                    Halal
+                  </span>
+                </div>
+              )}
+
+              {/* Allergen Badge */}
+              {product.hasAllergen && (
+                <div className="flex items-center gap-1.5 rounded-full bg-brand-red/10 px-2 py-1 border border-brand-red/20">
+                  <AlertCircle
+                    size={14}
+                    className="text-brand-red"
+                    strokeWidth={2.5}
+                  />
+                  <span className="text-[10px] font-bold text-brand-red uppercase tracking-wider">
+                    Allergens
+                  </span>
+                </div>
+              )}
+            </div>
+
             <div className="mt-8 border-t border-gray-100 pt-8">
               <h3 className="text-xs font-black text-brand-dark uppercase tracking-[0.2em]">
                 Description
               </h3>
               <p className="mt-4 text-gray-500 leading-relaxed text-lg max-w-md">
-                Freshly prepared at{" "}
-                <span className="text-brand-dark font-bold">Crispkatsu Go</span>
-                . Experience our signature crunch and authentic flavor profile.
+                {product.ProdDesc}
               </p>
             </div>
 
