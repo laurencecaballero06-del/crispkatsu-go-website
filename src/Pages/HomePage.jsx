@@ -6,6 +6,8 @@ export default function HomePage() {
       <AppShellWidget />
       <main>
         <Outlet />
+
+        <H1>Welcome to the HomePage</H1>
       </main>
     </>
   );
