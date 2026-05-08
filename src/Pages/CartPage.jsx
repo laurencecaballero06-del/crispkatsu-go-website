@@ -168,16 +168,26 @@ Total: ₱${subtotal.toFixed(2)}
 Please let me know how to proceed with the payment.`;
 
     const encodedMessage = encodeURIComponent(message);
-    const url = `https://m.me/FuritsuProjectFreelance?text=${encodedMessage}`;
+    const phone = "+63XXXXXXXXXX"; // your number here
 
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      window.location.href = url;
+    const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const isAndroid = /Android/i.test(navigator.userAgent);
+
+    if (isIOS) {
+      // iOS uses & as separator
+      window.location.href = `sms:${phone}&body=${encodedMessage}`;
+    } else if (isAndroid) {
+      // Android uses ? as separator
+      window.location.href = `sms:${phone}?body=${encodedMessage}`;
     } else {
-      window.open(url, "_blank");
+      // Desktop fallback — copy to clipboard
+      navigator.clipboard.writeText(message).then(() => {
+        alert("📋 Order copied! Please send it to us manually.");
+      });
     }
   };
 
+  
   return (
     <>
       {/* ── Verification Modal ── */}
