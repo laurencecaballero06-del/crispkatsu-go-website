@@ -1,6 +1,5 @@
 import React, { useRef, useEffect } from "react";
 
-// ── Turnstile Widget ──────────────────────────────────────────────────────────
 export function TurnstileWidget({ siteKey, onSuccess, onError, onExpired }) {
   const containerRef = useRef(null);
   const widgetIdRef = useRef(null);

@@ -10,6 +10,7 @@ export default function ProductListings() {
 
   const categories = ["All", ...new Set(productsData.map((p) => p.Category))];
 
+  // Filter products based on active category and sort by availability
   const filteredProducts = productsData
     .filter((p) => activeCategory === "All" || p.Category === activeCategory)
     .sort((a, b) => {

@@ -25,13 +25,17 @@ export default function ProductDetailsPage() {
     );
   }
 
+  // Handle both single image string and array of images
   const images = Array.isArray(product.image) ? product.image : [product.image];
 
+  // Functions to navigate through images in the carousel
   const nextImage = () =>
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  // The previous image function wraps around to the last image when at the beginning
   const prevImage = () =>
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
 
+  // Add to Cart function that updates localStorage with the new item and quantity
   const handleAddToCart = () => {
     const newItem = {
       name: product.ProdName,

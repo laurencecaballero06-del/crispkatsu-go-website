@@ -118,11 +118,13 @@ export default function CartPage() {
     }
   }, []);
 
+  // Get subtotal by multiplying price and quantity for each item.
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,
   );
 
+  // Update quantity of a specific item in the cart
   const updateQuantity = (itemName, delta) => {
     const updatedCart = cartItems.map((item) => {
       if (item.name === itemName) {
@@ -134,13 +136,14 @@ export default function CartPage() {
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
   };
 
+  // Remove single item from cart
   const handleRemove = (itemName) => {
     const updatedCart = cartItems.filter((item) => item.name !== itemName);
     setCartItems(updatedCart);
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
   };
 
-  // Called after Turnstile verifies the user
+  // Called after Turnstile verifies the user and add to cart
   const handleVerified = (_token) => {
     setShowVerification(false);
 
@@ -212,7 +215,7 @@ Please let me know how to proceed with the payment.`;
               className="transition-transform group-hover:-translate-x-1"
             />
             <span className="font-bold uppercase text-[10px] tracking-[0.2em]">
-              Back to Menu
+              Back
             </span>
           </button>
 
