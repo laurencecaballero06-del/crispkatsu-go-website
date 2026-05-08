@@ -169,6 +169,7 @@ Please let me know how to proceed with the payment.`;
 
     const encodedMessage = encodeURIComponent(message);
     const phone = "+63XXXXXXXXXX"; // your number here
+    const url = `https://m.me/FuritsuProjectFreelance?text=${encodedMessage}`;
 
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
     const isAndroid = /Android/i.test(navigator.userAgent);
@@ -181,13 +182,10 @@ Please let me know how to proceed with the payment.`;
       window.location.href = `sms:${phone}?body=${encodedMessage}`;
     } else {
       // Desktop fallback — copy to clipboard
-      navigator.clipboard.writeText(message).then(() => {
-        alert("📋 Order copied! Please send it to us manually.");
-      });
+      window.open(url, "_blank");
     }
   };
 
-  
   return (
     <>
       {/* ── Verification Modal ── */}
