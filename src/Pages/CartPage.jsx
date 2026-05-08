@@ -14,6 +14,7 @@ import {
   Loader2,
 } from "lucide-react";
 import { TurnstileWidget } from "./TurnstileWidget";
+import Footer from "../Components/Footer";
 
 // ── Verification Modal ────────────────────────────────────────────────────────
 function VerificationModal({ onVerified, onClose }) {
@@ -91,7 +92,7 @@ function VerificationModal({ onVerified, onClose }) {
           ) : (
             <MessageCircle size={18} fill="currentColor" />
           )}
-          {loading ? "Verifying..." : "Continue to Messenger"}
+          {loading ? "Verifying..." : "Continue checkout"}
         </button>
       </div>
     </div>
@@ -168,8 +169,8 @@ Total: ₱${subtotal.toFixed(2)}
 Please let me know how to proceed with the payment.`;
 
     const encodedMessage = encodeURIComponent(message);
-    const phone = "+63XXXXXXXXXX"; // your number here
-    const url = `https://m.me/FuritsuProjectFreelance?text=${encodedMessage}`;
+    const phone = "+639953644431";
+    const url = `https://m.me/CrispKatsuGo?text=${encodedMessage}`;
 
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
     const isAndroid = /Android/i.test(navigator.userAgent);
@@ -184,6 +185,9 @@ Please let me know how to proceed with the payment.`;
       // Desktop fallback — copy to clipboard
       window.open(url, "_blank");
     }
+
+    localStorage.removeItem("cartItems");
+    navigate("/"); // or window.location.href = "/" if not using React Router
   };
 
   return (
@@ -389,7 +393,7 @@ Please let me know how to proceed with the payment.`;
 
                 <p className="mt-8 text-[9px] text-gray-400 text-center font-bold uppercase tracking-tight leading-relaxed">
                   Orders are finalized via{" "}
-                  <span className="text-brand-red">Messenger</span> for
+                  <span className="text-brand-red">Messenger or SMS</span> for
                   freshness.
                 </p>
               </div>
@@ -405,6 +409,8 @@ Please let me know how to proceed with the payment.`;
           to   { opacity: 1; transform: translateY(0); }
         }
       `}</style>
+
+      <Footer />
     </>
   );
 }
