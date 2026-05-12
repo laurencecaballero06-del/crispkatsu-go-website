@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useIsMobile } from "../Utils/ScreenChecker/isMobile.js";
 import { ShieldCheck, AlertCircle } from "lucide-react";
+import HelmetComponent from "../Components/HelmetComponent.jsx";
 
 export default function ProductDetailsPage() {
   const isMobile = useIsMobile();
@@ -71,6 +72,10 @@ export default function ProductDetailsPage() {
     <div
       className={`min-h-screen bg-white font-body ${isMobile ? "pb-44" : "py-2"}`}
     >
+      <HelmetComponent
+        title={`${product.ProdName}`}
+        description={product.ProdDesc}
+      />
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         {/* --- DESKTOP BACK BUTTON --- */}
         {!isMobile && (

@@ -7,12 +7,17 @@ import KatsuImg5 from "../Assets/IMG_4314.JPG";
 import KatsuImg6 from "../Assets/japandi-organization-tips-for-small-kitchens.png";
 import KatsuImg7 from "../Assets/What-is-Japanese-Katsu_00-Feat-Img.jpg";
 import { useNavigate } from "react-router-dom";
+import HelmetComponent from "../Components/HelmetComponent";
 
 export default function Ourstory() {
   const navigate = useNavigate();
 
   return (
     <div className="font-sans text-gray-900 bg-white">
+      <HelmetComponent
+        title="Our Story"
+        description="Discover the passion and tradition behind Crisp Katsu, where we craft the perfect crunch for the modern soul. Learn about our roots, our commitment to quality, and the art of katsu that defines us."
+      />
       {/* hero ni banda */}
       <section className="relative min-h-[60vh] sm:min-h-[75vh] md:min-h-[90vh] flex items-end bg-gray-900 overflow-hidden">
         <img
@@ -45,7 +50,10 @@ export default function Ourstory() {
       </section>
 
       {/* sa art of the crisp ni na section haaha */}
-      <section id="art-of-the-crisp" className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-16 sm:py-20 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
+      <section
+        id="art-of-the-crisp"
+        className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-16 sm:py-20 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center"
+      >
         {/* Image — black bg so portrait/landscape both look clean */}
         <div className="rounded-2xl overflow-hidden bg-black w-full h-[300px] sm:h-[400px] md:h-[500px]">
           <img

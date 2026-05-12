@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import productsData from "../Data/Products.json";
 import { useIsMobile } from "../Utils/ScreenChecker/isMobile.js";
+import HelmetComponent from "../Components/HelmetComponent.jsx";
 
 export default function ProductListings() {
   const navigate = useNavigate();
@@ -17,9 +18,13 @@ export default function ProductListings() {
       // Sort by availability first (True/1 comes before False/0)
       return Number(b.isAvailable) - Number(a.isAvailable);
     });
-    
+
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 font-body">
+      <HelmetComponent
+        title="Menu"
+        description="Explore our delicious menu of crispy katsu dishes, fresh wraps, and satisfying sides. Find your new favorite meal at Crisp Katsu!"
+      />
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-10 gap-6">
