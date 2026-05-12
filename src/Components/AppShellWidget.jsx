@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
-export default function NavBar() {
+export default function   () {
   const [menuState, setMenuState] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const location = useLocation(); // Used to trigger a refresh when navigating

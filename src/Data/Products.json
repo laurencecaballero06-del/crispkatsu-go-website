@@ -1,7 +1,7 @@
 [
   {
     "id": "p1",
-    "ProdName": "Chicken Katsu w/ Rice",
+    "ProdName": "Chicken Katsu w/ Garlic Rice ",
     "ProdDesc": "Crispy breaded chicken cutlet served with steamed rice and a side of tangy katsu sauce.",
     "Price": 74.99,
     "Category": "Rice Meal",
@@ -20,7 +20,7 @@
     "Category": "Burger",
     "isAvailable": true,
     "hasAllergen": true,
-    "isHalal": true,
+    "isHalal": false,
     "image": [
       "https://static.vecteezy.com/system/resources/previews/054/838/729/non_2x/vegan-burger-with-lettuce-png.png"
     ]

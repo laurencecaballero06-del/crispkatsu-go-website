@@ -1,4 +1,3 @@
-import React from "react";
 import { RouterProvider } from "react-router-dom";
  // Adjust path to where your router is defined
 import "@mantine/core/styles.css";
