@@ -363,7 +363,7 @@ export default function Navbar() {
           <Link to="/" className="logo-link">
             <div className="logo-image-wrap">
               <img
-                src="src/assets/logo/KatsuLogo.png"
+                src="/KatsuLogo.png"
                 alt="CrispkatsuGO Logo"
               />
             </div>

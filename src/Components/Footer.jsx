@@ -155,7 +155,7 @@ export default function Footer() {
             <Link to="/" className="footer-logo-link">
               <div className="footer-logo-img-wrap">
                 <img
-                  src="src/assets/logo/KatsuLogo.png"
+                  src="/KatsuLogo.png"
                   alt="CrispkatsuGO Logo"
                 />
               </div>
