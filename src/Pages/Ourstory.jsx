@@ -13,6 +13,27 @@ import HelmetComponent from "../Components/HelmetComponent";
 export default function Ourstory() {
   const navigate = useNavigate();
 
+  const testimonials = [
+    {
+      quote: "The crunch is unbelievable. It stays perfectly crispy even after delivery! Best tonkatsu in town, hands down.",
+      author: "Anonymous",
+      role: "Local Citizen",
+    },
+    {
+      quote: "Pure Japanese excellence. The pork is incredibly tender and pairs flawlessly with their special house sauce.",
+      author: "Anonymous",
+      role: "Local Citizen",
+    },
+    {
+      quote: "Finally, authentic tasting katsu that fits the fast modern lifestyle. That local rice is immaculate!",
+      author: "Anonymous",
+      role: "Local Citizen",
+    },
+  ];
+
+  // Duplicate original items to achieve uninterrupted endless loop seamlessly
+  const doubleTestimonials = [...testimonials, ...testimonials];
+
   return (
     <div className="font-body text-brand-dark bg-white">
       <HelmetComponent
@@ -219,40 +240,29 @@ export default function Ourstory() {
         </div>
       </section>
 
-      {/* --- NEW: TESTIMONIALS SECTION --- */}
-      <section className="bg-gray-50/70 border-t border-gray-100 py-16 sm:py-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
-          <div className="mb-8 sm:mb-12 text-center md:text-left">
-            <p className="text-brand-red text-xs font-black tracking-widest uppercase mb-2">
-              Community Love
-            </p>
-            <h2 className="text-2xl sm:text-4xl font-black text-brand-dark font-display uppercase tracking-wide">
-              What They Say
-            </h2>
-          </div>
+      {/* --- INFINITE MARQUEE TESTIMONIALS SECTION --- */}
+      <section className="bg-gray-50/70 border-t border-gray-100 py-16 sm:py-24 overflow-hidden">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 mb-8 sm:mb-12 text-center md:text-left">
+          <p className="text-brand-red text-xs font-black tracking-widest uppercase mb-2">
+            Community Love
+          </p>
+          <h2 className="text-2xl sm:text-4xl font-black text-brand-dark font-display uppercase tracking-wide">
+            What They Say
+          </h2>
+        </div>
 
-          {/* Mobile uses a beautiful sideways swipe track so it stays clean and doesn't stretch vertically */}
-          <div className="flex md:grid md:grid-cols-3 gap-4 sm:gap-6 overflow-x-auto no-scrollbar snap-x -mx-4 px-4 md:mx-0 md:px-0">
-            {[
-              {
-                quote: "The crunch is unbelievable. It stays perfectly crispy even after delivery! Best tonkatsu in the city, hands down.",
-                author: "Anonumuos",
-                role: "Local Citizen",
-              },
-              {
-                quote: "Pure Japanese excellence. The pork is incredibly tender and pairs flawlessly with their special house sauce.",
-                author: "Anonumuos",
-                role: "Local Citizen",
-              },
-              {
-                quote: "Finally, authentic tasting katsu that fits the fast modern lifestyle. That local rice is immaculate!",
-                author: "Anonumuos",
-                role: "Local Citizen",
-              },
-            ].map((testi, idx) => (
+        {/* Outer Viewport Container Track Wrapper */}
+        <div className="relative w-full overflow-hidden flex">
+          {/* Edge Blur Vignette Gradients */}
+          <div className="absolute top-0 bottom-0 left-0 w-16 sm:w-28 bg-gradient-to-r from-gray-50/70 to-transparent z-10 pointer-events-none" />
+          <div className="absolute top-0 bottom-0 right-0 w-16 sm:w-28 bg-gradient-to-l from-gray-50/70 to-transparent z-10 pointer-events-none" />
+
+          {/* Marquee Infinite Inner Scroll Component Track */}
+          <div className="marquee-track flex gap-4 sm:gap-6 px-4">
+            {doubleTestimonials.map((testi, idx) => (
               <div
                 key={idx}
-                className="bg-white p-5 sm:p-8 rounded-2xl border border-gray-200/60 shadow-sm flex flex-col justify-between min-w-[280px] sm:min-w-[340px] md:min-w-0 snap-center"
+                className="bg-white p-5 sm:p-8 rounded-2xl border border-gray-200/60 shadow-sm flex flex-col justify-between w-[290px] sm:w-[350px] shrink-0"
               >
                 <div>
                   <Quote className="text-brand-red/20 mb-4" size={32} fill="currentColor" />
@@ -289,7 +299,7 @@ export default function Ourstory() {
         </div>
       </section>
 
-      {/* Reuse your custom styling block to hide scrollbar traces on horizontal swipe fields */}
+      {/* Embedded Style Block handling scrollbar concealment & marquee translations */}
       <style>{`
         .no-scrollbar::-webkit-scrollbar {
           display: none;
@@ -297,6 +307,21 @@ export default function Ourstory() {
         .no-scrollbar {
           -ms-overflow-style: none;
           scrollbar-width: none;
+        }
+
+        @keyframes marqueeScroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+
+        .marquee-track {
+          display: flex;
+          width: max-content;
+          animation: marqueeScroll 24s linear infinite;
+        }
+
+        .marquee-track:hover {
+          animation-play-state: paused;
         }
       `}</style>
     </div>

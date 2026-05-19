@@ -5,7 +5,31 @@ export default function Navbar() {
   const [menuState, setMenuState] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [scrolled, setScrolled] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // Dynamic store state tracking
   const location = useLocation();
+
+  // Handle dynamic operational hours checking logic (9:00 AM - 5:00 PM)
+  useEffect(() => {
+    const checkStoreStatus = () => {
+      const now = new Date();
+      const currentHour = now.getHours();
+      
+      // Set operational hours: 9:00 AM (9) to 5:00 PM (17)
+      const openHour = 9;
+      const closeHour = 17;
+
+      if (currentHour >= openHour && currentHour < closeHour) {
+        setIsOpen(true);
+      } else {
+        setIsOpen(false);
+      }
+    };
+
+    checkStoreStatus();
+    // Refresh status check every 60 seconds automatically
+    const interval = setInterval(checkStoreStatus, 60000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Wrapped in useCallback to prevent infinite reference re-triggers
   const updateCartCount = useCallback(() => {
@@ -212,6 +236,47 @@ export default function Navbar() {
           transform: scaleX(1);
         }
 
+        /* ── EXPLICIT TIME STATUS BADGE ── */
+        .status-badge {
+          display: none;
+          align-items: center;
+          gap: 6px;
+          padding: 4px 10px;
+          border-radius: 4px;
+          font-size: 11px;
+          font-weight: 900;
+          text-transform: uppercase;
+          letter-spacing: 0.1em;
+          border: 2px solid transparent;
+        }
+        .status-badge.open {
+          border-color: #10b981;
+          color: #10b981;
+          background: #f0fdf4;
+        }
+        .status-badge.closed {
+          border-color: #6b7280;
+          color: #4b5563;
+          background: #f9fafb;
+        }
+        .status-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: currentColor;
+        }
+        .status-badge.open .status-dot {
+          animation: pulseGlow 1.8s infinite ease-in-out;
+        }
+        @keyframes pulseGlow {
+          0% { opacity: 0.4; transform: scale(0.9); }
+          50% { opacity: 1; transform: scale(1.1); }
+          100% { opacity: 0.4; transform: scale(0.9); }
+        }
+        @media (min-width: 640px) {
+          .status-badge { display: inline-flex; }
+        }
+
         /* ── ACTIONS ── */
         .nav-actions {
           display: flex;
@@ -309,7 +374,7 @@ export default function Navbar() {
           z-index: 40;
         }
         .mobile-drawer.open {
-          max-height: 300px;
+          max-height: 360px; /* Slightly heightened to support status margin cleanly */
         }
         .mobile-drawer-inner {
           padding: 1.5rem;
@@ -350,6 +415,33 @@ export default function Navbar() {
           transform: translateX(0);
         }
 
+        .mobile-status-block {
+          margin-top: 1rem;
+          padding-top: 1rem;
+          border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .mobile-status-tag {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 11px;
+          font-weight: 900;
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          padding: 6px 14px;
+          border-radius: 4px;
+        }
+        .mobile-status-tag.open {
+          background: rgba(16, 185, 129, 0.15);
+          color: #34d399;
+          border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .mobile-status-tag.closed {
+          background: rgba(255, 255, 255, 0.05);
+          color: #9ca3af;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         @media (min-width: 1024px) {
           .mobile-drawer { display: none; }
         }
@@ -373,8 +465,21 @@ export default function Navbar() {
                 CRISPKATSU<span className="highlight">GO</span>
               </span>
               <span className="logo-tagline">Local Katsu · Est. 2024</span>
+              
             </div>
           </Link>
+           {/* Desktop Operational Indicator Tag */}
+            {isOpen ? (
+              <div className="status-badge open">
+                <span className="status-dot" />
+                Open Now until 5:00 PM
+              </div>
+            ) : (
+              <div className="status-badge closed">
+                <span className="status-dot" />
+                Store is Closed - Opens at 9:00 AM
+              </div>
+            )}
 
           {/* DESKTOP NAV */}
           <div className="desktop-nav">
@@ -384,9 +489,11 @@ export default function Navbar() {
               </Link>
             ))}
           </div>
+          
 
           {/* ACTIONS CONTAINER */}
           <div className="nav-actions">
+
             {/* Cart Button */}
             <Link to="/cart" className="cart-btn" aria-label={`View shopping cart, ${cartCount} items`}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -431,6 +538,20 @@ export default function Navbar() {
                 {item.title}
               </Link>
             ))}
+             {/* Mobile Operational Indicator Tag inside drawer bottom */}
+            <div className="mobile-status-block">
+              {isOpen ? (
+                <div className="mobile-status-tag open">
+                  <span className="status-dot" style={{ animation: 'pulseGlow 1.8s infinite ease-in-out' }} />
+                  Open to Serve You (9AM - 5PM)
+                </div>
+              ) : (
+                <div className="mobile-status-tag closed">
+                  <span className="status-dot" />
+                  Closed · Opens at 9:00 AM
+                </div>
+              )}
+            </div>           
           </div>
         </div>
       </nav>
